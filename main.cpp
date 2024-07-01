@@ -11,18 +11,18 @@ bool gameOver = true;
 int score = 0;
 
 
-#define NUM_TASKS 6 //TODO: Change to the number of tasks being used
-//Task struct for concurrent synchSMs implmentations
+#define NUM_TASKS 6 
+
 typedef struct _task{
-	signed 	 char state; 		//Task's current state
-	unsigned long period; 		//Task period
-	unsigned long elapsedTime; 	//Time elapsed since last task tick
-	int (*TickFct)(int); 		//Task tick function
+	signed 	 char state; 		
+	unsigned long period; 		
+	unsigned long elapsedTime; 	
+	int (*TickFct)(int); 		
 } task;
 
-const unsigned long GCD_PERIOD = 5;//TODO:Set the GCD Period
+const unsigned long GCD_PERIOD = 5;
 
-task tasks[NUM_TASKS]; // declared task array with 5 tasks
+task tasks[NUM_TASKS]; 
 
 enum DisplayRows{Display_Row};
 int TickFct_displayRow(int state);
@@ -45,12 +45,12 @@ int TickFct_destroyPiece(int state);
 
 
 void TimerISR() {
-	for ( unsigned int i = 0; i < NUM_TASKS; i++ ) {                   // Iterate through each task in the task array
+	for ( unsigned int i = 0; i < NUM_TASKS; i++ ) {                   
 		if ( tasks[i].elapsedTime >= tasks[i].period ) {           // Check if the task is ready to tick
-			tasks[i].state = tasks[i].TickFct(tasks[i].state); // Tick and set the next state for this task
-			tasks[i].elapsedTime = 0;                          // Reset the elapsed time for the next tick
+			tasks[i].state = tasks[i].TickFct(tasks[i].state); 
+			tasks[i].elapsedTime = 0;                          // Reset the time for the next tick
 		}
-		tasks[i].elapsedTime += GCD_PERIOD;                        // Increment the elapsed time by GCD_PERIOD
+		tasks[i].elapsedTime += GCD_PERIOD;                        
 	}
 }
 
@@ -416,15 +416,15 @@ int TickFct_lowerPiece (int state)
     }
     if (score >= 10)
     {
-        time = 2;
+        time = 1;
     }
     else if (score >=2)
     {
-        time = 3;
+        time = 1;
     }
     else
     {
-        time = 4;
+        time = 2;
     }
     currTime = 0;
     }
